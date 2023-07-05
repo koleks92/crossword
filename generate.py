@@ -67,6 +67,7 @@ class CrosswordCreator():
         for i in range(self.crossword.height):
             for j in range(self.crossword.width):
 
+
                 rect = [
                     (j * cell_size + cell_border,
                      i * cell_size + cell_border),
@@ -99,7 +100,11 @@ class CrosswordCreator():
         (Remove any values that are inconsistent with a variable's unary
          constraints; in this case, the length of the word.)
         """
-        raise NotImplementedError
+        for key in self.domains.keys():
+            for value in self.domains[key].copy():
+                if key.length != len(value):
+                    self.domains[key].remove(value)
+        
 
     def revise(self, x, y):
         """
